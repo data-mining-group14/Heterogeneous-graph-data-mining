@@ -65,9 +65,7 @@ if args.cuda:
     idx_train = idx_train.to(device)
     idx_val = idx_val.to(device)
     idx_test = idx_test.to(device)
-    # labels_for_lpa = one_hot_embedding(labels, labels.max().item() + 1).type(torch.FloatTensor).to(device)
 
-# model.load_state_dict(torch.load('DMtest.pkl'))
 
 acc = 0
 def train(epoch, acc):
@@ -76,7 +74,6 @@ def train(epoch, acc):
     optimizer.zero_grad()
     output = model(features, adj)
     loss_gcn = F.nll_loss(output[idx_train], labels[idx_train])
-    # loss_lpa = F.nll_loss(y_hat, labels)
     acc_train = accuracy(output[idx_train], labels[idx_train])
     loss_train = loss_gcn
     loss_train.backward(retain_graph=True)
@@ -114,15 +111,12 @@ def test():
     with torch.no_grad():
         output = model(features, adj)
     preds = output.max(1)[1].type_as(labels)
-    # loss_test = F.nll_loss(output[idx_test], labels[idx_test])
-    # acc_test = accuracy(output[idx_test], labels[idx_test])
     print("Test complete!")
     return preds
 
 model.load_state_dict(torch.load('DMtest.pkl'))
 
 # Testing
-# model.load_state_dict(torch.load('netden169.pkl'))
 
 prediction = test().cpu()
 result=(np.array(prediction)).tolist()
