@@ -95,7 +95,7 @@ def different_q(q):
     result.to_csv(result_path+result_file_name, index=False)
 
 import concurrent.futures
-executor = concurrent.futures.ProcessPoolExecutor(max_workers=3)
+executor = concurrent.futures.ProcessPoolExecutor(max_workers=7)
 _=executor.submit(different_d,80)
 _=executor.submit(different_d,120)
 _=executor.submit(different_p,1.2)
