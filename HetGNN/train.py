@@ -79,7 +79,7 @@ def test():
     output = model(feature, adj_author,adj_paper,mask1,mask1)
     preds = output.max(1)[1].type_as(train_label).cpu().numpy()
     result = pd.DataFrame(preds)
-    result.to_csv("./result/ARMA.csv")
+    result.to_csv("./results/ARMA.csv")
     
 t_total = time.time()
 for epoch in range(args.epochs):
